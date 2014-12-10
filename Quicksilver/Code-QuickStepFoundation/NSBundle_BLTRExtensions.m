@@ -11,7 +11,7 @@
 @implementation NSBundle (BLTRExtensions)
 
 - (id)imageNamed:(NSString *)name {
-	NSString *compositeName = [NSString stringWithFormat:@"%@:%@", [self bundleIdentifier], name];
+	NSString *compositeName = [NSString stringWithFormat:@"%@:%@", [self bundleIdentifier], [name stringByReplacingOccurrencesOfString:@"/" withString:@""]];
 	__autoreleasing NSImage *image = [NSImage imageNamed:compositeName];
 	if (!image) { 
         image = [[NSImage alloc] initWithContentsOfFile:[self pathForImageResource:name]];

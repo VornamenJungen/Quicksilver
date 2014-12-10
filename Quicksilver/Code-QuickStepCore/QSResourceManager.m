@@ -61,6 +61,8 @@ QSResourceManager * QSRez;
 }
 
 - (NSImage *)imageWithExactName:(NSString *)name {
+    // strings with a slash lead to a crash - issue #2002
+    name = [name stringByReplacingOccurrencesOfString:@"/" withString:@""];
     NSImage *image = [NSImage imageNamed:name];
     if (!image && resourceOverrideList) {
         NSString *file = [resourceOverrideList objectForKey:name];
@@ -86,6 +88,7 @@ QSResourceManager * QSRez;
         return nil;
     }
     
+    name = [name stringByReplacingOccurrencesOfString:@"/" withString:@""];
     __block NSImage *image = [NSImage imageNamed:name];
     if (image) {
         return image;
